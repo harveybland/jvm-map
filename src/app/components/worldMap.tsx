@@ -1,15 +1,15 @@
-"use client";
-
+import React, { useEffect, useState } from "react";
 // @ts-ignore
 import jsVectorMap from "jsvectormap";
 import "jsvectormap/dist/maps/world.js";
 import "../../styles/worldMap.scss";
-import { useEffect } from "react";
+import { UserDataProps } from "../../../types/types";
 
-export default function WorldMap({ data }: any) {
-  function initMap() {
-    console.log(data);
-    const map = new jsVectorMap({
+export default function WorldMap({ userData }: any) {
+  const [map, setMap] = useState<any>(null);
+
+  const initMap = () => {
+    const newMap = new jsVectorMap({
       selector: "#map",
       map: "world",
       zoomOnScroll: false,
@@ -25,82 +25,69 @@ export default function WorldMap({ data }: any) {
       markerStyle: {
         initial: {
           stroke: "#5a6779",
-          strokeWidth: 2,
-          fill: "#fb9039",
-          fillOpacity: 1,
+          strokeWidth: 0,
+          fillOpacity: 2,
         },
       },
-      onMarkerClick: function () {
-        // redirect to the user profile
-        console.log(data);
+      onMarkerClick: function (event: any, index: number) {
+        // Get the URL from the data
+        const url = userData[index].url;
+
+        if (url) {
+          // Redirect the user to the URL
+          window.location.href = url;
+        }
       },
-      // Marker label style
-      // markerLabelStyle: {
-      //   initial: {
-      //     fontFamily: "'Inter', sans-serif",
-      //     fontSize: 14,
-      //     fontWeight: 500,
-      //     fill: "#f0f",
-      //   },
-      //   hover: {
-      //     fill: "#3cc0ff",
-      //   },
-      // },
-      // Lines style
-      // lineStyle: {
-      //   stroke: "#fb9039",
-      //   strokeWidth: 1.5,
-      //   fill: "red",
-      //   fillOpacity: 1,
-      //   strokeDasharray: "6, 3, 6",
-      //   animation: true, // Enables animation
-      // },
-      // render the marker name
-      // labels: {
-      //   markers: {
-      //     render(marker: any) {
-      //       return marker.name || "Not available";
-      //     },
-      //   },
-      // },
     });
-    // data
-    // let previousItemName: any = null;
 
-    let delay = 0;
-    const delayIncrement = 600;
-
-    data.forEach((item: any) => {
-      // Add markers from data
-      setTimeout(() => {
-        map.addMarkers([
-          {
-            name: item.name,
-            coords: [item.lat, item.lng],
-          },
-        ]);
-
-        // Add lines from the previous item to the current item
-        // if (previousItemName) {
-        //   map.addLines([
-        //     {
-        //       from: previousItemName,
-        //       to: item.name,
-        //     },
-        //   ]);
-        // }
-
-        // Update the previousItemName for the next iteration
-        // previousItemName = item.name;
-      }, delay);
-
-      delay += delayIncrement;
-    });
-  }
+    setMap(newMap);
+  };
 
   useEffect(() => {
     initMap();
   }, []);
+
+  useEffect(() => {
+    if (map) {
+      const delayIncrement = 900;
+      const transitionDelay = 2200;
+
+      const showAndRemoveMarkers = (arrayIndex: number) => {
+        const markerColor = getMarkerColor(arrayIndex);
+        const itemArray = userData[arrayIndex];
+
+        itemArray.forEach((item: UserDataProps, index: number) => {
+          setTimeout(() => {
+            map.addMarkers([
+              {
+                name: item.funder,
+                coords: [item.lat, item.lng],
+                style: {
+                  fill: markerColor,
+                },
+              },
+            ]);
+          }, index * delayIncrement);
+
+          setTimeout(() => {
+            map.removeMarkers([index]);
+          }, index * delayIncrement + transitionDelay);
+        });
+
+        setTimeout(() => {
+          showAndRemoveMarkers((arrayIndex + 1) % userData.length); // Repeat with the next array
+        }, itemArray.length * delayIncrement + transitionDelay - delayIncrement);
+      };
+
+      showAndRemoveMarkers(0); // Start with the first array
+    }
+  }, [map, userData]);
+
+  // Define marker colors based on array index
+  const getMarkerColor = (index: number): string => {
+    const colors = ["blue", "green", "red", "pink"];
+    return colors[index % colors.length];
+  };
 
   return (
     <div className="map-container">

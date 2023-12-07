@@ -3,6 +3,11 @@
     display: none;
 }
 
+// Remove cursor pointer for regions
+.jvm-region {
+    cursor: auto;
+}
+
 // zoom buttons
 .jvm-zoom-btn {
     // background-color: red;
@@ -23,16 +28,13 @@
 }
 
 // markers animation
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
   
-.fade-in-marker {
-    animation: fadeIn 1s ease-in-out;
-}
+  .jvm-marker {
+    animation: fadeInOut 2.2s ease-in-out;
+  }
   
-
-.jvm-marker {
-    animation: fadeIn 1s ease-in-out;
-}

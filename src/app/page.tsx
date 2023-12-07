@@ -9,7 +9,7 @@ const WorldMap = dynamic(() => import("./components/worldMap"), {
 });
 
 export default function Page() {
-  const [data, setData] = useState<any>([]);
+  const [jsonData, setData] = useState<any[]>([]);
   const [loadMap, setLoadMap] = useState(false);
   const observedElementRef = useRef(null);
 
@@ -44,11 +44,11 @@ export default function Page() {
   return (
     <div>
       <h1 className="text-center font-bold py-8 text-2xl">JS Vector Map</h1>
-      <div className="pt-[20vh]"></div>
+      <div className="pt-[10vh]"></div>
       <div className="px-5" ref={observedElementRef}>
-        {loadMap && data && <WorldMap data={data} />}
+        {loadMap && jsonData && <WorldMap userData={jsonData} />}
       </div>
-      <div className="pt-[20vh]"></div>
+      <div className="pt-[10vh]"></div>
     </div>
   );
 }
