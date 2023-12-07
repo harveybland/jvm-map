@@ -1,0 +1,38 @@
+// Hide region tooltips 
+.jvm-tooltip {
+    display: none;
+}
+
+// zoom buttons
+.jvm-zoom-btn {
+    // background-color: red;
+    // position: absolute;
+    top: 0;
+    left: 10px;
+    cursor: pointer;
+    background-color: grey;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jvm-zoomout {
+    top: 20px;
+    margin-top: 10px;
+}
+
+// markers animation
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+  
+.fade-in-marker {
+    animation: fadeIn 1s ease-in-out;
+}
+  
+
+.jvm-marker {
+    animation: fadeIn 1s ease-in-out;
+}
