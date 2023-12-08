@@ -8,18 +8,23 @@
     cursor: auto;
 }
 
+.jvm-container {
+    position: relative;
+}
+
 // zoom buttons
 .jvm-zoom-btn {
-    // background-color: red;
-    // position: absolute;
+    background-color: grey;
+    position: absolute;
     top: 0;
     left: 10px;
     cursor: pointer;
-    background-color: grey;
     width: 20px;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 1px solid #000;
 }
 
 .jvm-zoomout {
