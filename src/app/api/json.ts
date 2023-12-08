@@ -64,8 +64,8 @@ const userData = async (): Promise<any[]> => {
       {
         id: 3,
         funder: 'funder 9',
-        lat: 60.876431,
-        lng: -40.16866,
+        lat: 53.876431,
+        lng: -2.16866,
         url: 'https://www.google.com',
       },
     ],

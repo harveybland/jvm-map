@@ -48,7 +48,9 @@ export default function WorldMap({ userData }: any) {
   }, []);
 
   useEffect(() => {
+    console.log("map", map);
     if (map) {
+      console.log("map", map);
       const delayIncrement = 900;
       const transitionDelay = 2200;
 
