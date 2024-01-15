@@ -42,11 +42,24 @@ export default function Page() {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-center font-bold py-8 text-2xl">JS Vector Map</h1>
+    <div className="px-5">
       <div className="pt-[10vh]"></div>
-      <div className="px-5" ref={observedElementRef}>
+      <div ref={observedElementRef}>
         {loadMap && jsonData && <WorldMap userData={jsonData} />}
+      </div>
+      <div className="map-grid">
+        <p>
+          Green<span> = 1970-1980</span>
+        </p>
+        <p>
+          Blue<span> = 1980-1990</span>
+        </p>
+        <p>
+          Red<span> = 1990-2000</span>
+        </p>
+        <p>
+          Pink<span> = 2000-2010</span>
+        </p>
       </div>
       <div className="pt-[10vh]"></div>
     </div>

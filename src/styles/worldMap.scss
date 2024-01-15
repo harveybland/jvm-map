@@ -10,6 +10,8 @@
 
 .jvm-container {
     position: relative;
+    width: 100%;
+    height: 330px;
 }
 
 // zoom buttons
@@ -25,6 +27,8 @@
     align-items: center;
     justify-content: center;
     border: 1px solid #000;
+    // Hide buttons
+    display: none;
 }
 
 .jvm-zoomout {
@@ -41,5 +45,5 @@
   
   .jvm-marker {
     animation: fadeInOut 2.2s ease-in-out;
-  }
+}
   
